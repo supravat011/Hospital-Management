@@ -2,17 +2,42 @@ import React, { useState } from 'react';
 import PatientSidebar from '@/components/PatientSidebar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Search, Pill, Clock, Calendar, AlertCircle, MapPin, UserMd } from 'lucide-react';
+import { Search, Pill, Clock, Calendar, AlertCircle, MapPin, Stethoscope, Volume2 } from 'lucide-react';
+import { speakTamil } from '@/utils/tamilVoice';
+import { toast } from 'sonner';
 
 const PatientMedicine = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<'current' | 'past'>('current');
 
-    // Mock data with hospital/clinic info
+    const handleSpeakMedicine = async (medicineName: string, tamilName: string, tamilInstructions: string) => {
+        try {
+            // Check if speech synthesis is supported
+            if (!('speechSynthesis' in window)) {
+                toast.error('Text-to-Speech is not supported in your browser');
+                return;
+            }
+
+            // Ensure user interaction (required by some browsers)
+            const textToSpeak = `${tamilName}. ${tamilInstructions}`;
+
+            console.log('Attempting to speak:', textToSpeak);
+            toast.info('Playing audio in Tamil...', { duration: 2000 });
+
+            speakTamil(textToSpeak);
+
+        } catch (error) {
+            console.error('Speech error:', error);
+            toast.error('Unable to play audio. Please check your browser settings.');
+        }
+    };
+
+    // Mock data with Tamil translations
     const currentMedicines = [
         {
             id: 1,
             name: 'Amoxicillin',
+            tamilName: 'அமோக்ஸிசிலின்',
             dosage: '500mg',
             frequency: '3 times daily',
             duration: '7 days',
@@ -22,11 +47,13 @@ const PatientMedicine = () => {
             startDate: '2024-03-20',
             endDate: '2024-03-27',
             instructions: 'Take with food to avoid stomach upset',
+            tamilInstructions: 'வயிற்று வலியைத் தவிர்க்க உணவுடன் எடுத்துக் கொள்ளவும்',
             status: 'active'
         },
         {
             id: 2,
             name: 'Metformin',
+            tamilName: 'மெட்ஃபார்மின்',
             dosage: '500mg',
             frequency: 'Twice daily',
             duration: 'Ongoing',
@@ -36,11 +63,13 @@ const PatientMedicine = () => {
             startDate: '2024-02-15',
             endDate: '2024-08-15',
             instructions: 'Take with evening meal',
+            tamilInstructions: 'மாலை உணவுடன் எடுத்துக் கொள்ளவும்',
             status: 'active'
         },
         {
             id: 3,
             name: 'Lisinopril',
+            tamilName: 'லிசினோபிரில்',
             dosage: '10mg',
             frequency: 'Once daily',
             duration: '90 days',
@@ -50,11 +79,13 @@ const PatientMedicine = () => {
             startDate: '2024-03-10',
             endDate: '2024-06-08',
             instructions: 'Take in the morning',
+            tamilInstructions: 'காலையில் எடுத்துக் கொள்ளவும்',
             status: 'active'
         },
         {
             id: 4,
             name: 'Atorvastatin',
+            tamilName: 'அடோர்வாஸ்டாடின்',
             dosage: '20mg',
             frequency: 'Once at night',
             duration: 'Ongoing',
@@ -64,11 +95,13 @@ const PatientMedicine = () => {
             startDate: '2024-01-05',
             endDate: '2025-01-05',
             instructions: 'Avoid grapefruit juice',
+            tamilInstructions: 'திராட்சைப்பழ சாற்றை தவிர்க்கவும்',
             status: 'active'
         },
         {
             id: 5,
             name: 'Levothyroxine',
+            tamilName: 'லெவோதைராக்ஸின்',
             dosage: '50mcg',
             frequency: 'Once daily',
             duration: 'Ongoing',
@@ -78,6 +111,7 @@ const PatientMedicine = () => {
             startDate: '2023-11-20',
             endDate: '2024-11-20',
             instructions: 'Take 30 mins before breakfast on empty stomach',
+            tamilInstructions: 'காலை உணவுக்கு 30 நிமிடங்களுக்கு முன் வெறும் வயிற்றில் எடுத்துக் கொள்ளவும்',
             status: 'active'
         }
     ];
@@ -86,6 +120,7 @@ const PatientMedicine = () => {
         {
             id: 6,
             name: 'Azithromycin',
+            tamilName: 'அசித்ரோமைசின்',
             dosage: '250mg',
             frequency: 'Once daily',
             duration: '5 days',
@@ -95,11 +130,13 @@ const PatientMedicine = () => {
             startDate: '2024-02-10',
             endDate: '2024-02-15',
             instructions: 'Take on empty stomach',
+            tamilInstructions: 'வெறும் வயிற்றில் எடுத்துக் கொள்ளவும்',
             status: 'completed'
         },
         {
             id: 7,
             name: 'Ibuprofen',
+            tamilName: 'இபுப்ரோஃபென்',
             dosage: '400mg',
             frequency: 'As needed',
             duration: '14 days',
@@ -109,11 +146,13 @@ const PatientMedicine = () => {
             startDate: '2024-01-15',
             endDate: '2024-01-29',
             instructions: 'Take with food for pain',
+            tamilInstructions: 'வலிக்கு உணவுடன் எடுத்துக் கொள்ளவும்',
             status: 'completed'
         },
         {
             id: 8,
             name: 'Prednisone',
+            tamilName: 'பிரெட்னிசோன்',
             dosage: '10mg',
             frequency: 'Once daily',
             duration: '5 days',
@@ -123,6 +162,7 @@ const PatientMedicine = () => {
             startDate: '2023-12-01',
             endDate: '2023-12-06',
             instructions: 'Take with food in the morning',
+            tamilInstructions: 'காலையில் உணவுடன் எடுத்துக் கொள்ளவும்',
             status: 'completed'
         }
     ];
@@ -131,6 +171,7 @@ const PatientMedicine = () => {
 
     const filteredMedicines = medicines.filter(med =>
         med.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        med.tamilName.includes(searchQuery) ||
         med.prescribedBy.toLowerCase().includes(searchQuery.toLowerCase()) ||
         med.hospitalName.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -141,9 +182,18 @@ const PatientMedicine = () => {
 
             <div className="flex-1 p-6 md:p-8">
                 {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">My Medications</h1>
-                    <p className="text-gray-600">Track your current prescriptions and medication history</p>
+                <div className="mb-8 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Medications</h1>
+                        <p className="text-gray-600">Track your current prescriptions and medication history</p>
+                    </div>
+                    <button
+                        onClick={() => handleSpeakMedicine('Test', 'மருந்து', 'இது ஒரு சோதனை')}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                    >
+                        <Volume2 className="w-4 h-4" />
+                        Test Audio
+                    </button>
                 </div>
 
                 {/* Search Bar */}
@@ -164,8 +214,8 @@ const PatientMedicine = () => {
                     <button
                         onClick={() => setActiveTab('current')}
                         className={`px-6 py-3 font-semibold text-sm transition-all relative ${activeTab === 'current'
-                                ? 'text-blue-600'
-                                : 'text-gray-500 hover:text-gray-900'
+                            ? 'text-blue-600'
+                            : 'text-gray-500 hover:text-gray-900'
                             }`}
                     >
                         Current Prescriptions
@@ -176,8 +226,8 @@ const PatientMedicine = () => {
                     <button
                         onClick={() => setActiveTab('past')}
                         className={`px-6 py-3 font-semibold text-sm transition-all relative ${activeTab === 'past'
-                                ? 'text-blue-600'
-                                : 'text-gray-500 hover:text-gray-900'
+                            ? 'text-blue-600'
+                            : 'text-gray-500 hover:text-gray-900'
                             }`}
                     >
                         Past Medications
@@ -201,14 +251,23 @@ const PatientMedicine = () => {
                                                 }`}>
                                                 <Pill className="w-5 h-5" />
                                             </div>
-                                            <div>
-                                                <h3 className="text-lg font-bold text-gray-900 leading-tight">{medicine.name}</h3>
+                                            <div className="flex-1">
+                                                <div className="flex items-center gap-2">
+                                                    <h3 className="text-lg font-bold text-gray-900 leading-tight">{medicine.name}</h3>
+                                                    <button
+                                                        onClick={() => handleSpeakMedicine(medicine.name, medicine.tamilName, medicine.tamilInstructions)}
+                                                        className="p-1.5 rounded-full hover:bg-blue-50 text-blue-600 transition-colors group"
+                                                        title="Read medicine name and instructions in Tamil"
+                                                    >
+                                                        <Volume2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                                    </button>
+                                                </div>
                                                 <p className="text-sm font-medium text-gray-500">{medicine.dosage}</p>
                                             </div>
                                         </div>
                                         <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wide rounded-full ${medicine.status === 'active'
-                                                ? 'bg-blue-100 text-blue-700'
-                                                : 'bg-gray-200 text-gray-600'
+                                            ? 'bg-blue-100 text-blue-700'
+                                            : 'bg-gray-200 text-gray-600'
                                             }`}>
                                             {medicine.status}
                                         </span>
@@ -218,7 +277,7 @@ const PatientMedicine = () => {
                                         {/* Prescriber Info */}
                                         <div className="flex items-start gap-4 mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
                                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-gray-100 shadow-sm text-gray-400">
-                                                <UserMd className="w-6 h-6" />
+                                                <Stethoscope className="w-6 h-6" />
                                             </div>
                                             <div>
                                                 <p className="text-sm font-semibold text-gray-900">{medicine.prescribedBy}</p>
