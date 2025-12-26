@@ -1,11 +1,11 @@
 # Render Build Configuration
 # This file tells Render how to build and run your backend
 
-# Build Command
-buildCommand: cd server && npm install
+# Build Command (install dependencies from root)
+buildCommand: npm install
 
-# Start Command  
-startCommand: cd server && npm start
+# Start Command (run server from root)
+startCommand: node server.cjs
 
 # Environment
 environment: node
