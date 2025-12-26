@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Doccure Brand Colors */
+    --primary: 164 92% 46%;
+    /* #09e5ab */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 208 74% 31%;
+    /* #15558d */
+    --secondary-foreground: 0 0% 100%;
+
+    --footer-bg: 232 20% 20%;
+    /* #272b41 approx from footer screenshot */
+    --footer-text: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 164 92% 46%;
+
+    --radius: 0.5rem;
+
+    /* Custom Healthcare tokens */
+    --healthcare-gradient: linear-gradient(135deg, hsl(164 92% 46%) 0%, hsl(164 92% 40%) 100%);
+    --healthcare-gradient-dark: linear-gradient(135deg, hsl(208 74% 31%) 0%, hsl(208 74% 25%) 100%);
+    --healthcare-gradient-light: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(199 89% 96%) 100%);
+    --shadow-soft: 0 4px 20px -2px hsl(164 92% 46% / 0.15);
+    --shadow-card: 0 4px 25px -5px hsl(222 47% 11% / 0.1);
+    --shadow-hover: 0 10px 40px -10px hsl(164 92% 46% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 189 94% 43%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 189 94% 43%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 189 94% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 189 94% 43%;
+
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 189 94% 43%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 189 94% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .gradient-primary {
+    background: var(--healthcare-gradient);
+  }
+
+  .gradient-dark {
+    background: var(--healthcare-gradient-dark);
+  }
+
+  .gradient-light {
+    background: var(--healthcare-gradient-light);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .badge-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .elderly-friendly {
+    @apply text-lg md:text-xl font-medium;
+  }
+
+  .btn-elderly {
+    @apply min-h-[56px] text-lg px-8 font-semibold;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background: var(--healthcare-gradient);
+  }
+
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Smooth Page Transitions */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .page-transition {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .page-transition-fast {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  /* Scroll Animation Classes */
+  .scroll-fade-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered animation delays for child elements */
+  .scroll-fade-up.delay-100 {
+    transition-delay: 0.1s;
+  }
+
+  .scroll-fade-up.delay-200 {
+    transition-delay: 0.2s;
+  }
+
+  .scroll-fade-up.delay-300 {
+    transition-delay: 0.3s;
+  }
+}
