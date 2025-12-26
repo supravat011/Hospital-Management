@@ -1,0 +1,17 @@
+# Render Build Configuration
+# This file tells Render how to build and run your backend
+
+# Build Command
+buildCommand: cd server && npm install
+
+# Start Command  
+startCommand: cd server && npm start
+
+# Environment
+environment: node
+
+# Health Check Path
+healthCheckPath: /api/health
+
+# Auto-Deploy
+autoDeploy: true
