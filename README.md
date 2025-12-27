@@ -251,20 +251,12 @@ npm run build
 
 This project is licensed under the MIT License.
 
-## 👥 Authors
-
-- **Your Name** - Initial work
-
 ## 🙏 Acknowledgments
 
 - Built with [React](https://reactjs.org/)
 - UI components from [Shadcn UI](https://ui.shadcn.com/)
 - Icons from [Lucide React](https://lucide.dev/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
-
-## 📞 Support
-
-For support, email your-email@example.com or create an issue in the repository.
 
 ---
 
